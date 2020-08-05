@@ -1,4 +1,5 @@
 from room import Room
+from player import Player
 
 # Declare all the rooms
 
@@ -38,14 +39,47 @@ room['treasure'].s_to = room['narrow']
 #
 
 # Make a new player object that is currently in the 'outside' room.
-
+player = Player(room['outside'])
+directions = ['n', 's', 'e', 'w', 'q']
 # Write a loop that:
-#
-# * Prints the current room name
-# * Prints the current description (the textwrap module might be useful here).
-# * Waits for user input and decides what to do.
-#
-# If the user enters a cardinal direction, attempt to move to the room there.
-# Print an error message if the movement isn't allowed.
-#
-# If the user enters "q", quit the game.
+while True:
+    # * Prints the current room name
+    location = player.location
+    print(f"You are in the {location.name}. {location.description}")
+    print("Which direction would you like to head next?")
+    cmd = input('Enter a direction:')
+   
+    # * Prints the current description (the textwrap module might be useful here).
+    # * Waits for user input and decides what to do.
+    #
+    # If the user enters a cardinal direction, attempt to move to the room there.
+    # Print an error message if the movement isn't allowed.
+    #
+    # If the user enters "q", quit the game.
+
+    if cmd == 'q':
+        break
+    elif cmd == 'n':
+        if hasattr(location, 'n_to'):
+            print("you have gone north")
+            player.location = location.n_to
+        else:
+            print("you cant go that way!")
+    elif cmd == 's':
+        if hasattr(location, 's_to'):
+            print("you have gone south")
+            player.location = location.s_to
+        else:
+            print('you cant go that way')
+    elif cmd == 'e':
+        if  hasattr(location, 'e_to'):
+            print("you have gone east")
+            player.location = location.e_to
+        else:
+            print('you cant go that way')
+    elif cmd == 'w':
+        if  hasattr(location, 'w_to'):
+            print("you have gone west")
+            player.location = location.w_to
+        else:
+            print('you cant go that way')
